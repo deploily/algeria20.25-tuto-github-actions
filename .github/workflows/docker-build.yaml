@@ -34,7 +34,7 @@ jobs:
   deploy-image-prod:
     runs-on: arc-rs-deploily-console
     needs: build-and-push-image
-    if: github.repository_owner == 'deploily'
+    if: github.repository_owner == 'allilou'
     steps:
       - run: |
           echo "🎉 Deploy using runner scale set runners:)"
