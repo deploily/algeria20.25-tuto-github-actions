@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tuto-algeria-dpz
+  name: tuto-algeria-dpz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tuto-algeria-dpz
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: tuto-algeria-dpz
+    spec:
+      containers:
+        - image: ghcr.io/allilou/hello-world-nginx:latest
+          imagePullPolicy: Always
+          name: tuto-algeria-dpz
+          ports:
+            - name: http
+              containerPort: 80
+
+      hostname: tuto-algeria-dpz
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: tuto-algeria-dpz
+  name: tuto-algeria-dpz
+spec:
+  ports:
+    - port: 80
+      name: http
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: tuto-algeria-dpz
+  type: NodePort
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: tuto-algeria-dpz-http
+  name: tuto-algeria-dpz-http
+
+spec:
+  rules:
+    - host: tuto-algeria-dpz.demo.deploily.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tuto-algeria-dpz
+                port:
+                  number: 80
