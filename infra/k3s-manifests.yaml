@@ -16,7 +16,7 @@ spec:
         app: tuto-algeria-dpz
     spec:
       containers:
-        - image: ghcr.io/allilou/hello-world-nginx:latest
+        - image: ghcr.io/deploily/hello-world-nginx:latest
           imagePullPolicy: Always
           name: tuto-algeria-dpz
           ports:
